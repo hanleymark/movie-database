@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300&display=swap');
+
+body {
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 18px;
+}
+
+.movies-table {
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.8em;
+    min-width: 400px;
+    box-shadow: 0 0 20px #bbb;
+    border-radius: 6px 6px 0 0;
+    overflow: hidden;
+}
+
+.movies-table thead tr {
+    background-color:rgb(55, 199, 204);
+    color: #ffffff;
+    text-align: left;
+}
+
+.movies-table th,
+.movies-table td {
+    padding: 12px 15px;
+}
+
+.movies-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.movies-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
