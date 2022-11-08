@@ -24,6 +24,17 @@ let Movie = function (name, plot, cast, runtime, rating, year) {
         let shortCastStr = (castStr.length <= length) ? castStr : castStr.substring(0, length - 4) + "...";
         return shortCastStr;
     };
+    this.getCast = function () {
+        let castStr = "";
+        for (let i = 0; i < this.cast.length; i++) {
+            castStr += cast[i];
+            // If this is not the last cast member, add a comma and a space
+            if (i < (this.cast.length - 1)) {
+                castStr += ", ";
+            }
+        }
+        return castStr;
+    };
 }
 
 importMovieData = function (catalogue, movies) {
@@ -47,7 +58,7 @@ displayMovieTable = function (selectedIndex) {
     let movieRowsHtml = "";
     for (let i = 0; i < movieCatalogue.length; i++) {
         let movie = movieCatalogue[i];
-        if (selectedIndex == i) {
+        if (selectedIndex === i) {
             movieRowsHtml += `<tr id="${i}" onclick="getRow(${i})" class="selected-row">`;
         }
         else {
@@ -58,6 +69,8 @@ displayMovieTable = function (selectedIndex) {
         movieRowsHtml += `<td>${movie.year}</td>`;
         movieRowsHtml += `<td>${movie.getShortCast(30)}</td>`;
         movieRowsHtml += `<td>${movie.rating}</td>`;
+
+        movieRowsHtml += `<td><button class="edit-button" onclick="editMovie(${i})">Edit</button></td>`
         movieRowsHtml += "</tr>";
     }
     movieListPlaceholder.innerHTML = movieRowsHtml;
@@ -71,11 +84,10 @@ displayMovieDetails = function (index) {
         let movie = movieCatalogue[index];
 
         console.log(index);
-        movieDetailsHtml += `<h3>'${movie.name}' details</h3>`;
-        movieDetailsHtml += `<p>Year: ${movie.year}</p>`;
+        movieDetailsHtml += `<h4>${movie.name} (${movie.year})</h4>`;
         movieDetailsHtml += `<p>Plot: ${movie.plot}</p>`;
-        movieDetailsHtml += `<p>Cast: ${movie.cast}</p>`;
-        movieDetailsHtml += `<p>Runtime: ${movie.runtime}</p>`;
+        movieDetailsHtml += `<p>Cast: ${movie.getCast()}</p>`;
+        movieDetailsHtml += `<p>Runtime: ${movie.runtime} minutes</p>`;
         movieDetailsHtml += `<p>Rating: ${movie.rating}</p>`;
         movieDetailsHtml += "</p>";
 

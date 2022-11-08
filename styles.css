@@ -18,15 +18,19 @@ body {
     color: #30a18a;
 }
 
-.movie-details {
+#movie-details {
     border-collapse: collapse;
     margin: 20px 0;
+    padding: 6px 12px;
     min-width: 400px;
     max-width: 600px;
     border-radius: 8px;
     overflow: hidden;
     background-color: #d6f5f5;
-    height: 200px;
+}
+#movie-details p,
+#movie-details h4 {
+    margin: 0.5em;
 }
 
 .movies-table {
