@@ -1,5 +1,6 @@
 let movieListPlaceholder = document.querySelector("#movie-list");
 let movieDetailsPlaceholder = document.querySelector("#movie-details");
+let editModal = document.querySelector("#edit-modal");
 
 let Movie = function (name, plot, cast, runtime, rating, year) {
     this.name = name;
@@ -78,7 +79,7 @@ displayMovieTable = function (selectedIndex) {
 }
 
 displayMovieDetails = function (index) {
-    if (typeof(index) === "number" && index >= 0 && index < movieCatalogue.length) {
+    if (typeof (index) === "number" && index >= 0 && index < movieCatalogue.length) {
         let movieDetailsHtml = "<p>";
 
         let movie = movieCatalogue[index];
@@ -98,6 +99,9 @@ displayMovieDetails = function (index) {
     }
 }
 
+editMovie = function (index) {
+    editModal.style.display = "block";
+}
 
 let movieData = {
     "The Darjeeling Limited": {
