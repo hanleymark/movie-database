@@ -5,6 +5,22 @@ let Movie = function (name, plot, cast, runtime, rating, year) {
     this.runtime = runtime;
     this.rating = rating;
     this.year = year;
+
+    // Method returns string of 'length' characters of cast members (with ellipsis if truncated)
+    this.getShortCast = function(length)  {
+        let castStr = "";
+        for (let i = 0; i < this.cast.length; i++) {
+            castStr += cast[i];
+            // If this is not the last cast member, add a comma and a space
+            if (i < (this.cast.length -1)) {
+                castStr += ", ";
+            }
+        }
+        // If the cast string is longer than specified length, shorten it and add ellipsis (...)
+        // Allow for the length of the ellipsis in the return string and zero based substring by subtracting four characters
+        let shortCastStr = (castStr.length <= length) ? castStr : castStr.substring(0, length - 4) + "...";
+        return shortCastStr;
+    };
 }
 
 importMovieData = function (catalogue, movies) {
@@ -18,6 +34,30 @@ importMovieData = function (catalogue, movies) {
             movies[name].year)
         );
     });
+}
+
+getRow = function (index) {
+    displayMovieTable(index);
+}
+
+displayMovieTable = function (selectedIndex) {
+    let movieRowsHtml = "";
+for (let i = 0; i < movieCatalogue.length; i++) {
+    let movie = movieCatalogue[i];
+    if (selectedIndex == i) {
+        movieRowsHtml += `<tr id="${i}" onclick="getRow(${i})" class="selected-row">`;
+    }
+    else{
+        movieRowsHtml += `<tr id="${i}" onclick="getRow(${i})">`;
+    }
+    
+    movieRowsHtml += `<td>${movie.name}</td>`;
+    movieRowsHtml += `<td>${movie.year}</td>`;
+    movieRowsHtml += `<td>${movie.getShortCast(30)}</td>`;
+    movieRowsHtml += `<td>${movie.rating}</td>`;
+    movieRowsHtml += "</tr>";
+}
+movieDataPlaceholder.innerHTML = movieRowsHtml;
 }
 
 
@@ -55,6 +95,13 @@ let movieData = {
         plot: "A writer encounters the owner of an aging high-class hotel, who tells him of his early years serving as a lobby boy in the hotel's glorious years under an exceptional concierge.",
         cast: ["Ralph Fiennes", "F. Murray Abraham", "Mathieu Amalric"],
     },
+    "The Grand Budapest Hotel 2": {
+        rating: 6.1,
+        runtime: 210,
+        year: 2016,
+        plot: "A writer returns to an aging high-class hotel to reprise his lobby boy activities.",
+        cast: ["Ralph Fiennes"],
+    },
 };
 
 let movieDataPlaceholder = document.querySelector("#movie-data");
@@ -62,16 +109,4 @@ let movieDataPlaceholder = document.querySelector("#movie-data");
 let movieCatalogue = [];
 
 importMovieData (movieCatalogue, movieData);
-
-let movieRowsHtml = "";
-for (let i = 0; i < movieCatalogue.length; i++) {
-    let movie = movieCatalogue[i];
-    movieRowsHtml += "<tr>";
-    movieRowsHtml += `<td>${movie.name}</td>`;
-    movieRowsHtml += `<td>${movie.year}</td>`;
-    movieRowsHtml += `<td>${movie.cast}</td>`;
-    movieRowsHtml += `<td>${movie.rating}</td>`;
-    movieRowsHtml += "</tr>";
-}
-//console.log(movieRowsHtml);
-movieDataPlaceholder.innerHTML = movieRowsHtml;
+displayMovieTable ("");

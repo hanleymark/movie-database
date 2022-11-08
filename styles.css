@@ -1,24 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
 
 body {
-    font-family: 'Roboto Flex', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 18px;
+    font-weight: 200;
+}
+
+.page-title {
+    font-size: 1.5em;
+    font-weight: 400;
+    color: #30a18a;
+}
+
+.subheading {
+    font-size: 1.2em;
+    font-weight: 400;
+    color: #30a18a;
+}
+
+.movie-details {
+    border-collapse: collapse;
+    margin: 20px 0;
+    min-width: 400px;
+    max-width: 600px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #d6f5f5;
+    height: 200px;
 }
 
 .movies-table {
     border-collapse: collapse;
     margin: 20px 0;
-    font-size: 0.8em;
+    font-size: 0.9em;
     min-width: 400px;
     box-shadow: 0 0 20px #bbb;
-    border-radius: 6px 6px 0 0;
+    border-radius: 8px 8px 0 0;
     overflow: hidden;
 }
 
 .movies-table thead tr {
-    background-color:rgb(55, 199, 204);
+    background-color:#2fb6b6;
     color: #ffffff;
     text-align: left;
+    font-size: 1.1em;
 }
 
 .movies-table th,
@@ -27,10 +52,14 @@ body {
 }
 
 .movies-table tbody tr {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #ddd;
 }
 
 .movies-table tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
 }
 
+.movies-table tbody tr.selected-row {
+    font-weight: 400;
+    background-color: #d6f5f5;
+}
