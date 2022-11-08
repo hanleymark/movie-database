@@ -1,3 +1,6 @@
+let movieListPlaceholder = document.querySelector("#movie-list");
+let movieDetailsPlaceholder = document.querySelector("#movie-details");
+
 let Movie = function (name, plot, cast, runtime, rating, year) {
     this.name = name;
     this.plot = plot;
@@ -7,12 +10,12 @@ let Movie = function (name, plot, cast, runtime, rating, year) {
     this.year = year;
 
     // Method returns string of 'length' characters of cast members (with ellipsis if truncated)
-    this.getShortCast = function(length)  {
+    this.getShortCast = function (length) {
         let castStr = "";
         for (let i = 0; i < this.cast.length; i++) {
             castStr += cast[i];
             // If this is not the last cast member, add a comma and a space
-            if (i < (this.cast.length -1)) {
+            if (i < (this.cast.length - 1)) {
                 castStr += ", ";
             }
         }
@@ -42,22 +45,45 @@ getRow = function (index) {
 
 displayMovieTable = function (selectedIndex) {
     let movieRowsHtml = "";
-for (let i = 0; i < movieCatalogue.length; i++) {
-    let movie = movieCatalogue[i];
-    if (selectedIndex == i) {
-        movieRowsHtml += `<tr id="${i}" onclick="getRow(${i})" class="selected-row">`;
+    for (let i = 0; i < movieCatalogue.length; i++) {
+        let movie = movieCatalogue[i];
+        if (selectedIndex == i) {
+            movieRowsHtml += `<tr id="${i}" onclick="getRow(${i})" class="selected-row">`;
+        }
+        else {
+            movieRowsHtml += `<tr id="${i}" onclick="getRow(${i})">`;
+        }
+
+        movieRowsHtml += `<td>${movie.name}</td>`;
+        movieRowsHtml += `<td>${movie.year}</td>`;
+        movieRowsHtml += `<td>${movie.getShortCast(30)}</td>`;
+        movieRowsHtml += `<td>${movie.rating}</td>`;
+        movieRowsHtml += "</tr>";
     }
-    else{
-        movieRowsHtml += `<tr id="${i}" onclick="getRow(${i})">`;
-    }
-    
-    movieRowsHtml += `<td>${movie.name}</td>`;
-    movieRowsHtml += `<td>${movie.year}</td>`;
-    movieRowsHtml += `<td>${movie.getShortCast(30)}</td>`;
-    movieRowsHtml += `<td>${movie.rating}</td>`;
-    movieRowsHtml += "</tr>";
+    movieListPlaceholder.innerHTML = movieRowsHtml;
+    displayMovieDetails(selectedIndex);
 }
-movieDataPlaceholder.innerHTML = movieRowsHtml;
+
+displayMovieDetails = function (index) {
+    if (typeof(index) === "number" && index >= 0 && index < movieCatalogue.length) {
+        let movieDetailsHtml = "<p>";
+
+        let movie = movieCatalogue[index];
+
+        console.log(index);
+        movieDetailsHtml += `<h3>'${movie.name}' details</h3>`;
+        movieDetailsHtml += `<p>Year: ${movie.year}</p>`;
+        movieDetailsHtml += `<p>Plot: ${movie.plot}</p>`;
+        movieDetailsHtml += `<p>Cast: ${movie.cast}</p>`;
+        movieDetailsHtml += `<p>Runtime: ${movie.runtime}</p>`;
+        movieDetailsHtml += `<p>Rating: ${movie.rating}</p>`;
+        movieDetailsHtml += "</p>";
+
+        movieDetailsPlaceholder.innerHTML = movieDetailsHtml;
+    }
+    else {
+        movieDetailsPlaceholder.innerHTML = "<p>No movie has been selected. Select a movie in the list below to view its details.</p>";
+    }
 }
 
 
@@ -104,9 +130,7 @@ let movieData = {
     },
 };
 
-let movieDataPlaceholder = document.querySelector("#movie-data");
-
 let movieCatalogue = [];
 
-importMovieData (movieCatalogue, movieData);
-displayMovieTable ("");
+importMovieData(movieCatalogue, movieData);
+displayMovieTable("");
