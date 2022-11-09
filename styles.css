@@ -5,12 +5,19 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
     font-weight: 200;
+    max-width: 800px;
 }
 
 .page-title {
-    font-size: 1.5em;
+    background-color: #2fb6b6;
+    width: 100%;
+    text-align: left;
+    font-size: 2em;
     font-weight: 400;
-    color: #30a18a;
+    color: #fff;
+    padding: 2px 4px;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .subheading {
@@ -20,14 +27,17 @@ body {
 }
 
 #movie-details {
-    border-collapse: collapse;
     margin: 20px 0;
     padding: 6px 12px;
     min-width: 400px;
-    max-width: 600px;
+    max-width: 800px;
     border-radius: 8px;
     overflow: hidden;
     background-color: #d6f5f5;
+}
+
+.movie-plot {
+    flex: 5;
 }
 
 #movie-details p,
@@ -35,11 +45,19 @@ body {
     margin: 0.5em;
 }
 
+.movies-table-container {
+    max-width: 800px;
+    min-width: 300px;
+    overflow: hidden;
+}
+
 .movies-table {
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 20px auto;
+
     font-size: 0.9em;
     min-width: 400px;
+    width: 95%;
     box-shadow: 0 0 20px #bbb;
     border-radius: 8px 8px 0 0;
     overflow: hidden;
@@ -54,7 +72,7 @@ body {
 
 .movies-table th,
 .movies-table td {
-    padding: 12px 15px;
+    padding: 8px 10px;
 }
 
 .movies-table tbody tr {
@@ -91,35 +109,62 @@ body {
 }
 
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    /* display: none; Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
 
-  .modal-content {
-    position: relative;
+.modal-content {
+    /* position: relative; */
     background-color: #fefefe;
     margin: auto;
+    border-radius: 15px;
     padding: 0;
     border: 1px solid #888;
     width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
-  }
+}
 
-  .modal-header {
-    padding: 2px 16px;
-    background-color: #5cb85c;
+.modal-header {
+    padding: 2px 12px;
+    background-color: #2fb6b6;
     color: white;
-  }
+    border-radius: 15px 15px 0 0;
+    height: 50px;
+}
+
+.modal-header h3 {
+    margin: 10px 0 10px 2px;
+}
+
+.modal-body {
+    padding: 2px 12px;
+}
+
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    text-decoration: none;
+    cursor: pointer;
+}

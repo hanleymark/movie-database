@@ -15,6 +15,25 @@
             more information about it.</p>
     </section>
     <section>
+        <h2 class="subheading">List of movies</h2>
+        <div class="movies-table-container">
+            <table class="movies-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Year</th>
+                        <th>Cast</th>
+                        <th>Rating</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="movie-list">
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section>
         <h2 class="subheading">Movie details</h2>
         <div id="movie-details">
             <p>
@@ -22,32 +41,43 @@
             </p>
         </div>
     </section>
-    <section>
-        <h2 class="subheading">List of movies</h2>
-        <table class="movies-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Year</th>
-                    <th>Cast</th>
-                    <th>Rating</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="movie-list">
-
-            </tbody>
-        </table>
-    </section>
     <div id="edit-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2>Modal Header</h2>
+                <h3>Edit movie</h2>
             </div>
             <div class="modal-body">
-                <p>Some text in the Modal Body</p>
-                <p>Some other text...</p>
+                <form id="edit-form" action="#" method="post">
+                    <div class="form-field">
+                        <label for="name">Movie name:</label>
+                        <input type="text" id="name" name="name" placeholder="movie name" maxlength="120">
+                    </div>
+                    <div class="form-field">
+                        <label for="year">Year:</label>
+                        <input type="text" id="year" name="year" placeholder="year" maxlength="4">
+                    </div>
+                    <div class="form-field">
+                        <label for="cast">Cast list:</label>
+                        <input type="text" id="cast" name="cast" placeholder="enter cast names (one per line)">
+                    </div>
+                    <div class="form-field">
+                        <label for="plot">Plot:</label>
+                        <textarea id="plot" name="cast" placeholder="enter plot summary" rows="5"></textarea>
+                    </div>
+                    <div class="form-field">
+                        <label for="runtime">Run time:</label>
+                        <input type="text" id="runtime" name="runtime" placeholder="mins">
+                    </div>
+                    <div class="form-field">
+                        <label for="cast">Rating:</label>
+                        <input type="text" id="rating" name="rating" placeholder="0-10">
+                    </div>
+
+                    <br>
+                    <input type="submit" value="Submit">
+                    <input type="button" value="Cancel">
+                </form>
             </div>
         </div>
 

@@ -1,6 +1,6 @@
-let movieListPlaceholder = document.querySelector("#movie-list");
-let movieDetailsPlaceholder = document.querySelector("#movie-details");
-let editModal = document.querySelector("#edit-modal");
+const movieListPlaceholder = document.querySelector("#movie-list");
+const movieDetailsPlaceholder = document.querySelector("#movie-details");
+const editModal = document.querySelector("#edit-modal");
 
 let Movie = function (name, plot, cast, runtime, rating, year) {
     this.name = name;
@@ -80,17 +80,15 @@ displayMovieTable = function (selectedIndex) {
 
 displayMovieDetails = function (index) {
     if (typeof (index) === "number" && index >= 0 && index < movieCatalogue.length) {
-        let movieDetailsHtml = "<p>";
+        let movieDetailsHtml = "";
 
         let movie = movieCatalogue[index];
 
-        console.log(index);
         movieDetailsHtml += `<h4>${movie.name} (${movie.year})</h4>`;
-        movieDetailsHtml += `<p>Plot: ${movie.plot}</p>`;
+        movieDetailsHtml += `<p class="movie-plot">Plot: ${movie.plot}</p>`;
         movieDetailsHtml += `<p>Cast: ${movie.getCast()}</p>`;
         movieDetailsHtml += `<p>Runtime: ${movie.runtime} minutes</p>`;
         movieDetailsHtml += `<p>Rating: ${movie.rating}</p>`;
-        movieDetailsHtml += "</p>";
 
         movieDetailsPlaceholder.innerHTML = movieDetailsHtml;
     }
