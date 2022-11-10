@@ -9,9 +9,9 @@ body {
 }
 
 .page-title {
-    background-color: #2fb6b6;
+    background-color: #228686;
     width: 100%;
-    text-align: left;
+    text-align: center;
     font-size: 2em;
     font-weight: 400;
     color: #fff;
@@ -130,14 +130,16 @@ input:focus, textarea:focus {
 
 label {
     display: inline-block;
+    margin: 12px 0 0 6px;
     min-width: 120px;
+    vertical-align: top;
   }
 
 .modal {
     display: none;
     position: fixed;
     z-index: 1;
-    padding-top: 100px;
+    padding-top: 60px;
     left: 0;
     top: 0;
     width: 100%;
@@ -193,9 +195,10 @@ input[type=text] {
     padding: 6px;
     margin: 10px 5px;
     width: 80%;
-    max-width: 320px;
+    max-width: 360px;
     font-family: inherit;
-    font-size: inherit;
+    font-weight: inherit;
+    font-size: 0.9em;
     width: 100%;
 }
 
@@ -205,9 +208,10 @@ textarea {
     padding: 6px;
     margin: 10px 5px;
     width: 80%;
-    max-width: 320px;
+    max-width: 360px;
     font-family: inherit;
-    font-size: inherit;
+    font-weight: inherit;
+    font-size: 0.9em;
     width: 100%;
     resize: vertical;
 }

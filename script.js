@@ -1,6 +1,8 @@
 const movieListPlaceholder = document.querySelector("#movie-list");
 const movieDetailsPlaceholder = document.querySelector("#movie-details");
-const editModal = document.querySelector("#edit-modal");
+const modalWindow = document.querySelector("#modal-window");
+const modalWindowTitle = document.querySelector("#modal-title");
+const modalForm = document.querySelector("#modal-form");
 
 let Movie = function (name, plot, cast, runtime, rating, year) {
     this.name = name;
@@ -98,7 +100,76 @@ displayMovieDetails = function (index) {
 }
 
 editMovie = function (index) {
-    editModal.style.display = "block";
+    modalWindowTitle.textContent = "Edit movie";
+
+    const movie = movieCatalogue[index];
+
+    modalForm.elements["index"].value = index;
+    modalForm.elements["name"].value = movie.name;
+    modalForm.elements["year"].value = movie.year;
+    modalForm.elements["cast"].value = movie.getCast();
+    modalForm.elements["runtime"].value = movie.runtime;
+    modalForm.elements["rating"].value = movie.rating;
+    modalForm.elements["plot"].value = movie.plot;
+
+    modalWindow.style.display = "block";
+
+    modalForm.elements["name"].focus();
+}
+
+closeModal = function () {
+    modalWindow.style.display = "none";
+}
+
+processForm = function (event) {
+    console.log(`Movie ID = ${modalForm.elements["index"].value}`);
+
+    let index = modalForm.elements["index"].value;
+    let name = modalForm.elements["name"].value;
+    let year = modalForm.elements["year"].value;
+    let cast = modalForm.elements["cast"].value;
+    let runtime = modalForm.elements["runtime"].value;
+    let rating = modalForm.elements["rating"].value;
+    let plot = modalForm.elements["plot"].value;
+
+    if (checkFormNumbers()) {
+        console.log("Numbers are all ok");
+    }
+
+    event.preventDefault();
+}
+
+checkFormNumbers = function() {
+    let year = modalForm.elements["year"];
+    let runtime = modalForm.elements["runtime"];
+    let rating = modalForm.elements["rating"];
+
+    if (year.value === "" || runtime.value === "" || rating.value === "") {
+        return false;
+    }
+
+    if (!isNaN(+(year.value)) || !Number.isInteger(+(year.value))){
+        year.setCustomValidity("Year should be a whole number");
+        year.reportValidity();
+        console.log("!!YEAR");
+        return false;
+    }
+    if (!isNaN(runtime.value) || !Number.isInteger(runtime.value)) {
+        runtime.setCustomValidity("Runtime should be a whole number");
+        runtime.reportValidity();
+        console.log("!!RUNTIME");
+        return false;
+    }
+    if (!isNaN(rating.value)) {
+        rating.setCustomValidity("Rating should be a number");
+        year.reportValidity();
+        console.log("!!RATING");
+        return false;
+    }
+    year.setCustomValidity("");
+    runtime.setCustomValidity("");
+    rating.setCustomValidity("");
+    return true;
 }
 
 let movieData = {
@@ -148,3 +219,4 @@ let movieCatalogue = [];
 
 importMovieData(movieCatalogue, movieData);
 displayMovieTable("");
+modalForm.addEventListener("submit", processForm);

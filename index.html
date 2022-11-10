@@ -11,8 +11,8 @@
 <body>
     <section>
         <h1 class="page-title">MOVIES! MOVIES! MOVIES!</h1>
-        <p>Welcome to the definitive online movie database experience. Click on a movie in the list below to find out
-            more information about it.</p>
+        <p>Welcome to MOVIES! MOVIES! MOVIES! This is the internet's definitive online movie database experience. Click
+            on a movie in the list below to find out more information about it.</p>
     </section>
     <section>
         <h2 class="subheading">List of movies</h2>
@@ -41,42 +41,45 @@
             </p>
         </div>
     </section>
-    <div id="edit-modal" class="modal">
+    <div id="modal-window" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close">&times;</span>
-                <h3>Edit movie</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h3 id="modal-title">
+                    </h2>
             </div>
             <div class="modal-body">
-                <form id="edit-form" action="#" method="post">
+                <form id="modal-form" action="#" method="post">
+                    <input type="hidden" id="index" name="index">
                     <div class="form-field">
                         <label for="name">Movie name:</label>
-                        <input type="text" id="name" name="name" placeholder="movie name" maxlength="120">
+                        <input type="text" id="name" name="name" placeholder="movie name" maxlength="120" required>
                     </div>
                     <div class="form-field">
                         <label for="year">Year:</label>
-                        <input type="text" id="year" name="year" placeholder="year" maxlength="4">
+                        <input type="text" id="year" name="year" placeholder="year" maxlength="4" onchange="checkFormNumbers()" required>
                     </div>
                     <div class="form-field">
                         <label for="cast">Cast list:</label>
-                        <input type="text" id="cast" name="cast" placeholder="enter cast names (one per line)">
+                        <textarea id="cast" name="cast" placeholder="enter cast names separated by commas"
+                            rows="3" required></textarea>
                     </div>
                     <div class="form-field">
                         <label for="plot">Plot:</label>
-                        <textarea id="plot" name="cast" placeholder="enter plot summary" rows="5"></textarea>
+                        <textarea id="plot" name="plot" placeholder="enter plot summary" rows="5" required></textarea>
                     </div>
                     <div class="form-field">
                         <label for="runtime">Run time:</label>
-                        <input type="text" id="runtime" name="runtime" placeholder="mins">
+                        <input type="text" id="runtime" name="runtime" placeholder="mins" required>
                     </div>
                     <div class="form-field">
                         <label for="cast">Rating:</label>
-                        <input type="text" id="rating" name="rating" placeholder="0-10">
+                        <input type="text" id="rating" name="rating" placeholder="0-10" required>
                     </div>
 
                     <br>
                     <input type="submit" class="input-button save" value="Save">
-                    <input type="button" class="input-button cancel" value="Cancel">
+                    <input type="button" class="input-button cancel" value="Cancel" onclick="closeModal()">
                 </form>
             </div>
         </div>
