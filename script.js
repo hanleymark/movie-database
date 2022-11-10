@@ -122,8 +122,6 @@ closeModal = function () {
 }
 
 processForm = function (event) {
-    console.log(`Movie ID = ${modalForm.elements["index"].value}`);
-
     let index = modalForm.elements["index"].value;
     let name = modalForm.elements["name"].value;
     let year = modalForm.elements["year"].value;
@@ -133,7 +131,16 @@ processForm = function (event) {
     let plot = modalForm.elements["plot"].value;
 
     if (checkFormNumbers()) {
-        console.log("Numbers are all ok");
+        let movie = movieCatalogue[index];
+
+        movie.name = name;
+        movie.year = year;
+        movie.runtime = runtime;
+        movie.rating = rating;
+        movie.plot = plot;
+
+        closeModal();
+        displayMovieTable();
     }
 
     event.preventDefault();
@@ -148,27 +155,28 @@ checkFormNumbers = function() {
         return false;
     }
 
-    if (!isNaN(+(year.value)) || !Number.isInteger(+(year.value))){
+    if (isNaN(+(year.value)) || !Number.isInteger(+(year.value))){
         year.setCustomValidity("Year should be a whole number");
         year.reportValidity();
-        console.log("!!YEAR");
         return false;
     }
-    if (!isNaN(runtime.value) || !Number.isInteger(runtime.value)) {
+    if (isNaN(+(runtime.value)) || !Number.isInteger(+(runtime.value))) {
         runtime.setCustomValidity("Runtime should be a whole number");
         runtime.reportValidity();
-        console.log("!!RUNTIME");
         return false;
     }
-    if (!isNaN(rating.value)) {
+    if (isNaN(+(rating.value))) {
         rating.setCustomValidity("Rating should be a number");
         year.reportValidity();
-        console.log("!!RATING");
         return false;
     }
     year.setCustomValidity("");
     runtime.setCustomValidity("");
     rating.setCustomValidity("");
+
+    year.reportValidity();
+    runtime.reportValidity("");
+    rating.reportValidity("");
     return true;
 }
 
