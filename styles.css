@@ -88,7 +88,7 @@ body {
     background-color: #d6f5f5;
 }
 
-.movies-table button {
+.input-button, .edit-button{
     border: none;
     color: #fff;
     padding: 0.4em 1em;
@@ -98,46 +98,64 @@ body {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     color: #FFFFFF;
-    background-color: #2fb6b6;
     text-align: center;
     transition: all 0.2s;
     font-size: 0.9em;
+    background-color: #2fb6b6;
 }
 
-.movies-table button:hover {
+input:focus, textarea:focus {
+    background-color: #eee;
+    border-width: 2px;
+  }
+
+.cancel {
+    background-color: #bbb;
+    margin: 10px;
+    min-width: 100px;
+}
+
+.cancel:hover {
+    background-color: #888;
+}
+
+.save {
+    margin-bottom: 10px;
+    min-width: 100px;
+}
+
+.edit-button:hover, .save:hover {
     background-color: #258e8e;
 }
 
+label {
+    display: inline-block;
+    min-width: 120px;
+  }
+
 .modal {
-    /* display: none; Hidden by default */
+    display: none;
     position: fixed;
-    /* Stay in place */
     z-index: 1;
-    /* Sit on top */
     padding-top: 100px;
-    /* Location of the box */
     left: 0;
     top: 0;
     width: 100%;
-    /* Full width */
     height: 100%;
-    /* Full height */
     overflow: auto;
-    /* Enable scroll if needed */
     background-color: rgb(0, 0, 0);
-    /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
 }
 
 .modal-content {
-    /* position: relative; */
+    position: relative;
     background-color: #fefefe;
     margin: auto;
     border-radius: 15px;
     padding: 0;
     border: 1px solid #888;
     width: 80%;
+    max-width: 550px;
 }
 
 .modal-header {
@@ -167,4 +185,29 @@ body {
 .close:focus {
     text-decoration: none;
     cursor: pointer;
+}
+
+input[type=text] {
+    border: 1px solid #30a18a;
+    border-radius: 5px;
+    padding: 6px;
+    margin: 10px 5px;
+    width: 80%;
+    max-width: 320px;
+    font-family: inherit;
+    font-size: inherit;
+    width: 100%;
+}
+
+textarea {
+    border: 1px solid #30a18a;
+    border-radius: 5px;
+    padding: 6px;
+    margin: 10px 5px;
+    width: 80%;
+    max-width: 320px;
+    font-family: inherit;
+    font-size: inherit;
+    width: 100%;
+    resize: vertical;
 }
