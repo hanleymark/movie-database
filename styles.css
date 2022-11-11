@@ -88,7 +88,7 @@ body {
     background-color: #d6f5f5;
 }
 
-.input-button, .edit-button{
+.input-button, .edit-button, .new-button{
     border: none;
     color: #fff;
     padding: 0.4em 1em;
@@ -124,7 +124,7 @@ input:focus, textarea:focus {
     min-width: 100px;
 }
 
-.edit-button:hover, .save:hover {
+.edit-button:hover, .save:hover, .new-button:hover {
     background-color: #258e8e;
 }
 

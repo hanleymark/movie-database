@@ -3,7 +3,9 @@ const movieDetailsPlaceholder = document.querySelector("#movie-details");
 const modalWindow = document.querySelector("#modal-window");
 const modalWindowTitle = document.querySelector("#modal-title");
 const modalForm = document.querySelector("#modal-form");
+const NEW_MOVIE = -1;
 
+// Movie object represents one movie
 let Movie = function (name, plot, cast, runtime, rating, year) {
     this.name = name;
     this.plot = plot;
@@ -14,32 +16,46 @@ let Movie = function (name, plot, cast, runtime, rating, year) {
 
     // Method returns string of 'length' characters of cast members (with ellipsis if truncated)
     this.getShortCast = function (length) {
-        let castStr = "";
-        for (let i = 0; i < this.cast.length; i++) {
-            castStr += cast[i];
-            // If this is not the last cast member, add a comma and a space
-            if (i < (this.cast.length - 1)) {
-                castStr += ", ";
-            }
-        }
+        let castStr = this.getCastAsString();
         // If the cast string is longer than specified length, shorten it and add ellipsis (...)
         // Allow for the length of the ellipsis in the return string and zero based substring by subtracting four characters
         let shortCastStr = (castStr.length <= length) ? castStr : castStr.substring(0, length - 4) + "...";
         return shortCastStr;
     };
-    this.getCast = function () {
-        let castStr = "";
-        for (let i = 0; i < this.cast.length; i++) {
-            castStr += cast[i];
-            // If this is not the last cast member, add a comma and a space
-            if (i < (this.cast.length - 1)) {
-                castStr += ", ";
+    // Method returns array of cast actors separated by comma+space in a string
+    this.getCastAsString = function () {
+        let castStr = this.cast.toString();
+        let castStrWithSpaces = "";
+
+        // Iterate through the cast array as a string and add a space after each comma in a new string
+        for (let i = 0; i < castStr.length; i++) {
+            if (castStr[i] == ",") {
+                castStrWithSpaces += ", ";
+            }
+            else {
+                castStrWithSpaces += castStr[i];
             }
         }
-        return castStr;
+        return castStrWithSpaces;
+    };
+
+    // Method imports a string of actors separated by commas and converts to an array of actor name strings
+    // Then sets the 'cast' property to this array
+    this.importCastFromCommaSeparatedString = function (castList) {
+        // Split string of comma separated actor names into an array of string
+        let castArray = castList.split(",");
+
+        this.cast = [];
+        // Iterate through actor strings and remove any spaces at the beginning or end of each
+        // Push each one to this.cast
+        for (let i = 0; i < castArray.length; i++) {
+            this.cast.push(castArray[i].trim());
+        }
     };
 }
 
+// Function imports data from the supplied 'movies' object array and adds a new Movie object
+// for each one to the supplied catalogue array
 importMovieData = function (catalogue, movies) {
     Object.keys(movies).forEach(name => {
         catalogue.push(new Movie(
@@ -53,33 +69,41 @@ importMovieData = function (catalogue, movies) {
     });
 }
 
-getRow = function (index) {
+// Function highlights a row in the movie table then displays movie details
+// Called by onclick event handler in movie table row
+selectMovieTableRow = function (index) {
     displayMovieTable(index);
 }
 
+// Display abbreviated information about all movies in table
 displayMovieTable = function (selectedIndex) {
     let movieRowsHtml = "";
+    // Iterate through all Movie objects in the movieCatalogue
     for (let i = 0; i < movieCatalogue.length; i++) {
         let movie = movieCatalogue[i];
+        // If this row is the one that was clicked on then change its style to 'selected-row'
         if (selectedIndex === i) {
-            movieRowsHtml += `<tr id="${i}" onclick="getRow(${i})" class="selected-row">`;
+            movieRowsHtml += `<tr id="${i}" onclick="selectMovieTableRow(${i})" class="selected-row">`;
         }
         else {
-            movieRowsHtml += `<tr id="${i}" onclick="getRow(${i})">`;
+            movieRowsHtml += `<tr id="${i}" onclick="selectMovieTableRow(${i})">`;
         }
 
         movieRowsHtml += `<td>${movie.name}</td>`;
         movieRowsHtml += `<td>${movie.year}</td>`;
-        movieRowsHtml += `<td>${movie.getShortCast(30)}</td>`;
+        movieRowsHtml += `<td>${movie.getShortCast(24)}</td>`;
         movieRowsHtml += `<td>${movie.rating}</td>`;
-
-        movieRowsHtml += `<td><button class="edit-button" onclick="editMovie(${i})">Edit</button></td>`
+        // Add an edit button at the end of the table row
+        movieRowsHtml += `<td align="right"><button class="edit-button" onclick="editMovie(${i})">Edit</button></td>`
         movieRowsHtml += "</tr>";
     }
+    // Add an 'add new' button at the end of the table
+    movieRowsHtml += `<tr><td></td><td></td><td></td><td></td><td align="right"><button class="new-button" onclick="newMovie()">Add new</button></td>`;
     movieListPlaceholder.innerHTML = movieRowsHtml;
     displayMovieDetails(selectedIndex);
 }
 
+// Function displays the details of the selected movie at the bottom of the page
 displayMovieDetails = function (index) {
     if (typeof (index) === "number" && index >= 0 && index < movieCatalogue.length) {
         let movieDetailsHtml = "";
@@ -88,17 +112,18 @@ displayMovieDetails = function (index) {
 
         movieDetailsHtml += `<h4>${movie.name} (${movie.year})</h4>`;
         movieDetailsHtml += `<p class="movie-plot">Plot: ${movie.plot}</p>`;
-        movieDetailsHtml += `<p>Cast: ${movie.getCast()}</p>`;
+        movieDetailsHtml += `<p>Cast: ${movie.getCastAsString()}</p>`;
         movieDetailsHtml += `<p>Runtime: ${movie.runtime} minutes</p>`;
         movieDetailsHtml += `<p>Rating: ${movie.rating}</p>`;
 
         movieDetailsPlaceholder.innerHTML = movieDetailsHtml;
     }
     else {
-        movieDetailsPlaceholder.innerHTML = "<p>No movie has been selected. Select a movie in the list below to view its details.</p>";
+        movieDetailsPlaceholder.innerHTML = "<p>No movie has been selected. Select a movie in the list above to view its details.</p>";
     }
 }
 
+// Display 'Edit movie' modal window and populate with the details of the selected movie
 editMovie = function (index) {
     modalWindowTitle.textContent = "Edit movie";
 
@@ -107,7 +132,7 @@ editMovie = function (index) {
     modalForm.elements["index"].value = index;
     modalForm.elements["name"].value = movie.name;
     modalForm.elements["year"].value = movie.year;
-    modalForm.elements["cast"].value = movie.getCast();
+    modalForm.elements["cast"].value = movie.getCastAsString();
     modalForm.elements["runtime"].value = movie.runtime;
     modalForm.elements["rating"].value = movie.rating;
     modalForm.elements["plot"].value = movie.plot;
@@ -117,10 +142,22 @@ editMovie = function (index) {
     modalForm.elements["name"].focus();
 }
 
+// Display a 'New movie' modal window
+newMovie = function () {
+    modalWindowTitle.textContent = "New movie";
+    modalForm.elements["index"].value = NEW_MOVIE;
+
+    modalWindow.style.display = "block";
+
+    modalForm.elements["name"].focus();
+}
+
+// Close the modal window
 closeModal = function () {
     modalWindow.style.display = "none";
 }
 
+// Function validates form data for editing and creating new movie form
 processForm = function (event) {
     let index = modalForm.elements["index"].value;
     let name = modalForm.elements["name"].value;
@@ -130,23 +167,35 @@ processForm = function (event) {
     let rating = modalForm.elements["rating"].value;
     let plot = modalForm.elements["plot"].value;
 
-    if (checkFormNumbers()) {
-        let movie = movieCatalogue[index];
+    // Update existing movie object if editing
+    if (index != NEW_MOVIE) {
+        if (checkFormNumbers()) {
+            let movie = movieCatalogue[index];
 
-        movie.name = name;
-        movie.year = year;
-        movie.runtime = runtime;
-        movie.rating = rating;
-        movie.plot = plot;
-
-        closeModal();
-        displayMovieTable();
+            movie.name = name;
+            movie.year = year;
+            movie.runtime = runtime;
+            movie.rating = rating;
+            movie.plot = plot;
+            movie.importCastFromCommaSeparatedString(cast);
+        }
     }
+    // Create a new movie and import the cast to it if adding a new movie
+    else {
+        if (checkFormNumbers()) {
+            let movie = new Movie(name, plot, [], runtime, rating, year);
+            movie.importCastFromCommaSeparatedString(cast);
+            movieCatalogue.push(movie);
+        }
+    }
+    closeModal();
+    displayMovieTable();
 
     event.preventDefault();
 }
 
-checkFormNumbers = function() {
+// Form validation function checks numbers are correctly formatted. Report any errors to user.
+checkFormNumbers = function () {
     let year = modalForm.elements["year"];
     let runtime = modalForm.elements["runtime"];
     let rating = modalForm.elements["rating"];
@@ -155,7 +204,7 @@ checkFormNumbers = function() {
         return false;
     }
 
-    if (isNaN(+(year.value)) || !Number.isInteger(+(year.value))){
+    if (isNaN(+(year.value)) || !Number.isInteger(+(year.value))) {
         year.setCustomValidity("Year should be a whole number");
         year.reportValidity();
         return false;
@@ -180,6 +229,7 @@ checkFormNumbers = function() {
     return true;
 }
 
+// Supplied movie data object array
 let movieData = {
     "The Darjeeling Limited": {
         plot: "A year after their father's funeral, three brothers travel across India by train in an attempt to bond with each other.",
@@ -223,6 +273,7 @@ let movieData = {
     },
 };
 
+// Initialise the movie catalogue
 let movieCatalogue = [];
 
 importMovieData(movieCatalogue, movieData);
