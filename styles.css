@@ -34,6 +34,7 @@ body {
     border-radius: 8px;
     overflow: hidden;
     background-color: #d6f5f5;
+    width: 95%;
 }
 
 .movie-plot {
@@ -174,6 +175,7 @@ label {
     border: 1px solid #888;
     width: 80%;
     max-width: 550px;
+    min-width: 340px;
 }
 
 .modal-header {
@@ -215,7 +217,6 @@ input[type=text] {
     font-family: inherit;
     font-weight: inherit;
     font-size: 0.9em;
-    width: 100%;
 }
 
 textarea {
@@ -228,6 +229,5 @@ textarea {
     font-family: inherit;
     font-weight: inherit;
     font-size: 0.9em;
-    width: 100%;
     resize: vertical;
 }
