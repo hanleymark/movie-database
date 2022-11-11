@@ -54,9 +54,7 @@ body {
 .movies-table {
     border-collapse: collapse;
     margin: 20px auto;
-
-    font-size: 0.9em;
-    min-width: 400px;
+    min-width: 300px;
     width: 95%;
     box-shadow: 0 0 20px #bbb;
     border-radius: 8px 8px 0 0;
@@ -70,9 +68,20 @@ body {
     font-size: 1.1em;
 }
 
-.movies-table th,
-.movies-table td {
-    padding: 8px 10px;
+@media screen and (min-width: 601px) {
+    .movies-table th,
+    .movies-table td {
+        padding: 8px 10px;
+        font-size: 0.9em;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .movies-table th,
+    .movies-table td {
+        padding: 2px 4px;
+        font-size: 0.7em;
+    }
 }
 
 .movies-table tbody tr {
@@ -88,7 +97,7 @@ body {
     background-color: #d6f5f5;
 }
 
-.input-button, .edit-button, .new-button{
+.input-button, .edit-button, .new-button {
     border: none;
     color: #fff;
     padding: 0.4em 1em;
@@ -107,7 +116,7 @@ body {
 input:focus, textarea:focus {
     background-color: #eee;
     border-width: 2px;
-  }
+}
 
 .cancel {
     background-color: #bbb;
@@ -133,7 +142,7 @@ label {
     margin: 12px 0 0 6px;
     min-width: 120px;
     vertical-align: top;
-  }
+}
 
 .modal {
     display: none;
