@@ -18,6 +18,11 @@
         <h2 class="subheading">List of movies</h2>
         <div class="movies-table-container">
             <table class="movies-table">
+                <colgroup>
+                    <col span="2">
+                    <col span="2" class="col-collapse">
+                    <col>
+                </colgroup>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -57,12 +62,13 @@
                     </div>
                     <div class="form-field">
                         <label for="year">Year:</label>
-                        <input type="text" id="year" name="year" placeholder="year" maxlength="4" onchange="checkFormNumbers()" required>
+                        <input type="text" id="year" name="year" placeholder="year" maxlength="4"
+                            onchange="checkFormNumbers()" required>
                     </div>
                     <div class="form-field">
                         <label for="cast">Cast list:</label>
-                        <textarea id="cast" name="cast" placeholder="enter cast names separated by commas"
-                            rows="3" required></textarea>
+                        <textarea id="cast" name="cast" placeholder="enter cast names separated by commas" rows="3"
+                            required></textarea>
                     </div>
                     <div class="form-field">
                         <label for="plot">Plot:</label>
@@ -70,11 +76,13 @@
                     </div>
                     <div class="form-field">
                         <label for="runtime">Run time:</label>
-                        <input type="text" id="runtime" name="runtime" placeholder="mins" onchange="checkFormNumbers()" required>
+                        <input type="text" id="runtime" name="runtime" placeholder="mins" onchange="checkFormNumbers()"
+                            required>
                     </div>
                     <div class="form-field">
                         <label for="rating">Rating:</label>
-                        <input type="text" id="rating" name="rating" placeholder="0-10" onchange="checkFormNumbers()" required>
+                        <input type="text" id="rating" name="rating" placeholder="0-10" onchange="checkFormNumbers()"
+                            required>
                     </div>
 
                     <br>
