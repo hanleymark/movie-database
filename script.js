@@ -126,7 +126,7 @@ displayMovieDetails = function (index) {
 // Display 'Edit movie' modal window and populate with the details of the selected movie
 editMovie = function (index) {
     modalWindowTitle.textContent = "Edit movie";
-
+    modalForm.reset();
     const movie = movieCatalogue[index];
 
     modalForm.elements["index"].value = index;
@@ -145,6 +145,7 @@ editMovie = function (index) {
 // Display a 'New movie' modal window
 newMovie = function () {
     modalWindowTitle.textContent = "New movie";
+    modalForm.reset();
     modalForm.elements["index"].value = NEW_MOVIE;
 
     modalWindow.style.display = "block";
